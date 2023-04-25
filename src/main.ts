@@ -84,7 +84,9 @@ async function cs(...args: string[]): Promise<string> {
     const csCached = await tc.cacheFile(csBinary, binaryName, 'cs', csVersion)
     core.addPath(csCached)
   }
-  return execOutput('cs', ...args)
+  const csArgs = core.getInput('cs-args')
+  const cmd = csArgs ? 'cs ' + csArgs : 'cs'
+  return execOutput(cmd, ...args)
 }
 
 async function run(): Promise<void> {
